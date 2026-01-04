@@ -1,5 +1,6 @@
 package com.gab.authservice.service;
 
+import com.gab.authservice.entity.Role;
 import com.gab.authservice.entity.User;
 import com.gab.authservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +23,13 @@ public class CustomUserDetailsService implements UserDetailsService {
             .password(user.getPassword())  // already encoded during signup
             .roles("USER")                 // default role for now
             .build();
+    }
+
+    public User convertToUserFromUserDetails(UserDetails userDetails){
+        return User.builder()
+                .email(userDetails.getUsername())
+                .password(userDetails.getPassword())
+                .role(Role.USER)
+                .build();
     }
 }

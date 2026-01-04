@@ -46,7 +46,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String path = request.getServletPath();
-        if (path.equals("/auth/signup") || path.equals("/auth/login")) {
+        if ("/auth/signup".equalsIgnoreCase(path) || "/auth/login".equalsIgnoreCase(path)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -64,6 +64,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         token = authHeader.substring(7); // strip "Bearer "
         email = jwtService.extractUsername(token);
 
+        /**
+         * SecurityContextHolder.getContext().getAuthentication() is used by @PreAuthorize annotation internally, hence we need to set that.
+         *
+         * Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+         * if (authentication == null) {
+         *     deny access;
+         * }
+         * if (!authentication.getAuthorities().contains("ROLE_USER")) {
+         *     deny access;
+         * }
+         * allow access;
+         */
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             if (jwtService.validateToken(token)) {
                 String role = jwtService.extractRole(token);

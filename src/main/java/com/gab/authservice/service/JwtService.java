@@ -154,7 +154,7 @@ public class JwtService {
                 .setSubject(user.getEmail())
                 .claim("role", user.getRole().name())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1 day
+                .setExpiration(new Date(System.currentTimeMillis() + 60*1000)) // 1 min
                 .signWith(getPrivateKey(), SignatureAlgorithm.RS256)
                 .compact();
     }
