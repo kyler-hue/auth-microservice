@@ -12,6 +12,8 @@ This microservice provides secure user management and JWT-based authentication.
 - Environment-based configuration with profile support (local/prod) and secure secrets management
 - Input validation using Jakarta Validation (Bean Validation 3.0)
 - RESTful API design
+- Expiry set to jwt tokens.
+- Refresh token is avaiable to generate new jwt tojen if jwt token is expired. 
 
 ## Technology Stack
 
