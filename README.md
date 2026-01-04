@@ -53,6 +53,9 @@ DB_PASSWORD=your_local_db_password
 ```bash
 # Uses .env file and local PostgreSQL
 ./mvnw spring-boot:run -Dspring.profiles.active=local
+
+# Run in debug mode
+ mvn spring-boot:run -Dspring-boot.run.profiles=local -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
 ```
 
 - **rebuild.sh** — Script to automate rebuilding the JAR, Docker image, and restarting containers for development.
